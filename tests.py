@@ -124,6 +124,13 @@ def count_steps(first_sim, second_sim):
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 2)
         if get_cords(first_sim)[0] == get_cords(second_sim)[0]:  # если символы в одинаковых строках
-            value_passing_fingers(get_cords(second_sim)[1],
-                                  abs(get_cords(second_sim)[
-                                          0] - 2))  # добавляем шаги в зависимости от отдалённости от home ряда
+            match get_cords(second_sim)[0]:
+                case 5 | 6 | 11:
+                    value_passing_fingers(get_cords(second_sim)[1],
+                                          abs(get_cords(second_sim)[0] - 2) + 1)
+                case 1 | 2 | 3 | 4 | 7 | 8 | 9 | 10:
+                    value_passing_fingers(get_cords(second_sim)[1],
+                                          abs(get_cords(second_sim)[0] - 2))
+                case 12:
+                    value_passing_fingers(get_cords(second_sim)[1],
+                                          abs(get_cords(second_sim)[0] - 2) + 2)
