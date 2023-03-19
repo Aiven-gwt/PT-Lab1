@@ -60,7 +60,7 @@ keys_dict = {2: {'skor_key': '1', 'raw': 0, 'column': 1},
              55: {'skor_key': '', 'raw': 0, 'column': 0},
              56: {'skor_key': '', 'raw': 0, 'column': 0},
              57: {'skor_key': ' ', 'raw': 0, 'column': 0},
-             58: {'skor_key': '', 'raw': 0, 'column': 0}}
+             58: {'skor_key': '~', 'raw': 2, 'column': 1}}
 
 counter_fingers = {'f5l': 0, 'f4l': 0, 'f3l': 0, 'f2l': 0, 'f1l': 0, 'f1r': 0, 'f2r': 0, 'f3r': 0, 'f4r': 0, 'f5r': 0}
 
@@ -95,9 +95,9 @@ def value_passing_fingers(column, value):
         case 8:
             counter_fingers['f3r'] += value
         case 9:
-            counter_fingers['f4l'] += value
+            counter_fingers['f4r'] += value
         case 10 | 11 | 12:
-            counter_fingers['f5l'] += value
+            counter_fingers['f5r'] += value
 
 
 # функция для подсчета шагов. При поступлении 2-х символов, считает шаги затраченные на нажатие второго.
@@ -112,11 +112,17 @@ def count_steps(first_sim, second_sim):
             match get_cords(second_sim)[1]:  # в зависимости от номеров столбцов записывам кол-во шагов в словарь
                 case 5 | 6:  # т.к. 5й и 6й столбцы бьются 1м пальцем(л. или п. указательным)
                     # прибавляем 1 шаг для занятия позиции от home ряда
-                    value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 1)
+                    if get_cords(second_sim)[0] == 2:
+                        value_passing_fingers(get_cords(second_sim)[1], 1)
+                    else:
+                        value_passing_fingers(get_cords(second_sim)[1],
+                                              abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 1)
                 case 1 | 2 | 3 | 4 | 7 | 8 | 9 | 10:  # столбцы бьющиеся 1м пальцем
-                    value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]))
+                    if get_cords(second_sim)[0] == 2:
+                        pass
+                    else:
+                        value_passing_fingers(get_cords(second_sim)[1],
+                                              abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]))
                 case 11:  # 11 и 12 бьются п.мезинцем поэтому прибавляем 1 или 2 шага для занятия позиции
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 1)
@@ -124,7 +130,7 @@ def count_steps(first_sim, second_sim):
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 2)
         if get_cords(first_sim)[0] == get_cords(second_sim)[0]:  # если символы в одинаковых строках
-            match get_cords(second_sim)[0]:
+            match get_cords(second_sim)[1]:
                 case 5 | 6 | 11:
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(second_sim)[0] - 2) + 1)
@@ -134,3 +140,10 @@ def count_steps(first_sim, second_sim):
                 case 12:
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(second_sim)[0] - 2) + 2)
+
+
+if __name__ == '__main__':
+    text = ['~', 'ц', 'щ']
+    for i in range(1, len(text)):
+        count_steps(text[i-1], text[i])
+    print(counter_fingers)
