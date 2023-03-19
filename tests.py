@@ -1,6 +1,7 @@
 """
 Файл для сборки программы
 """
+import re
 # наша раскладка ANT, а не skoropis!!! Стоит переделать skor_key на ant_key,
 # а так же добавить 'qwer_key': символ соответствующий qwery-расскладке, так же как прописан
 # skor_key(ПРОСТО ДОБАВИТЬ НИЧЕГО НЕ МЕНЯЯ)
@@ -143,7 +144,20 @@ def count_steps(first_sim, second_sim):
 
 
 if __name__ == '__main__':
-    text = ['~', 'ц', 'щ']
+    with open('text.txt', 'r', encoding='utf-8') as f:
+        text = f.read()
+    text = re.sub(r'[^А-Яа-я,*.]', '', text)
+    text = list(text)
+    list_upper_case = [i for i in text if i.isupper()]
+    list_unsup_chr = [i for i in text if i == 'ъ']
+    print(len(list_upper_case), len(list_unsup_chr))
+    value_passing_fingers(0, (len(list_upper_case) + len(list_unsup_chr))*2)
+    text = ''.join(text)
+    text = list(re.sub(r'ъ', 'ь', text))
+    text = [i.lower() for i in text]
+    print(text)
     for i in range(1, len(text)):
         count_steps(text[i-1], text[i])
     print(counter_fingers)
+
+
