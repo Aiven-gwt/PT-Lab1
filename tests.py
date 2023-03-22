@@ -2,66 +2,63 @@
 Файл для сборки программы
 """
 import re
-# наша раскладка ANT, а не skoropis!!! Стоит переделать skor_key на ant_key,
-# а так же добавить 'qwer_key': символ соответствующий qwery-расскладке, так же как прописан
-# skor_key(ПРОСТО ДОБАВИТЬ НИЧЕГО НЕ МЕНЯЯ)
-keys_dict = {2: {'skor_key': '1', 'raw': 0, 'column': 1},
-             3: {'skor_key': '2', 'raw': 0, 'column': 2},
-             4: {'skor_key': '3', 'raw': 0, 'column': 3},
-             5: {'skor_key': '4', 'raw': 0, 'column': 4},
-             6: {'skor_key': '5', 'raw': 0, 'column': 5},
-             7: {'skor_key': '6', 'raw': 0, 'column': 6},
-             8: {'skor_key': '7', 'raw': 0, 'column': 7},
-             9: {'skor_key': '8', 'raw': 0, 'column': 8},
-             10: {'skor_key': '9', 'raw': 0, 'column': 9},
-             11: {'skor_key': '0', 'raw': 0, 'column': 10},
-             12: {'skor_key': '*', 'raw': 0, 'column': 11},
-             13: {'skor_key': '=', 'raw': 0, 'column': 12},
-             14: {'skor_key': '', 'raw': 0, 'column': 0},
-             15: {'skor_key': '', 'raw': 0, 'column': 0},
-             16: {'skor_key': 'ц', 'raw': 1, 'column': 1},
-             17: {'skor_key': 'ь', 'raw': 1, 'column': 2},
-             18: {'skor_key': 'я', 'raw': 1, 'column': 3},
-             19: {'skor_key': ',', 'raw': 1, 'column': 4},
-             20: {'skor_key': '.', 'raw': 1, 'column': 5},
-             21: {'skor_key': 'з', 'raw': 1, 'column': 6},
-             22: {'skor_key': 'в', 'raw': 1, 'column': 7},
-             23: {'skor_key': 'к', 'raw': 1, 'column': 8},
-             24: {'skor_key': 'д', 'raw': 1, 'column': 9},
-             25: {'skor_key': 'ч', 'raw': 1, 'column': 10},
-             26: {'skor_key': 'ш', 'raw': 1, 'column': 11},
-             27: {'skor_key': 'щ', 'raw': 1, 'column': 12},
-             28: {'skor_key': '', 'raw': 0, 'column': 0},
-             29: {'skor_key': '', 'raw': 0, 'column': 0},
-             30: {'skor_key': 'у', 'raw': 2, 'column': 1},
-             31: {'skor_key': 'и', 'raw': 2, 'column': 2},
-             32: {'skor_key': 'е', 'raw': 2, 'column': 3},
-             33: {'skor_key': 'о', 'raw': 2, 'column': 4},
-             34: {'skor_key': 'а', 'raw': 2, 'column': 5},
-             35: {'skor_key': 'л', 'raw': 2, 'column': 6},
-             36: {'skor_key': 'н', 'raw': 2, 'column': 7},
-             37: {'skor_key': 'т', 'raw': 2, 'column': 8},
-             38: {'skor_key': 'с', 'raw': 2, 'column': 9},
-             39: {'skor_key': 'р', 'raw': 2, 'column': 10},
-             40: {'skor_key': 'й', 'raw': 2, 'column': 11},
-             41: {'skor_key': 'ё', 'raw': 0, 'column': 0},
-             42: {'skor_key': '', 'raw': 0, 'column': 0},
-             43: {'skor_key': '', 'raw': 0, 'column': 0},
-             44: {'skor_key': 'ф', 'raw': 3, 'column': 1},
-             45: {'skor_key': 'э', 'raw': 3, 'column': 2},
-             46: {'skor_key': 'х', 'raw': 3, 'column': 3},
-             47: {'skor_key': 'ы', 'raw': 3, 'column': 4},
-             48: {'skor_key': 'ю', 'raw': 3, 'column': 5},
-             49: {'skor_key': 'б', 'raw': 3, 'column': 6},
-             50: {'skor_key': 'м', 'raw': 3, 'column': 7},
-             51: {'skor_key': 'п', 'raw': 3, 'column': 8},
-             52: {'skor_key': 'г', 'raw': 3, 'column': 9},
-             53: {'skor_key': 'ж', 'raw': 3, 'column': 10},
-             54: {'skor_key': '', 'raw': 0, 'column': 0},
-             55: {'skor_key': '', 'raw': 0, 'column': 0},
-             56: {'skor_key': '', 'raw': 0, 'column': 0},
-             57: {'skor_key': ' ', 'raw': 0, 'column': 0},
-             58: {'skor_key': '~', 'raw': 2, 'column': 1}}
+keys_dict = {2: {'ant_key': '1', 'raw': 0, 'column': 1},
+             3: {'ant_key': '2', 'raw': 0, 'column': 2},
+             4: {'ant_key': '3', 'raw': 0, 'column': 3},
+             5: {'ant_key': '4', 'raw': 0, 'column': 4},
+             6: {'ant_key': '5', 'raw': 0, 'column': 5},
+             7: {'ant_key': '6', 'raw': 0, 'column': 6},
+             8: {'ant_key': '7', 'raw': 0, 'column': 7},
+             9: {'ant_key': '8', 'raw': 0, 'column': 8},
+             10: {'ant_key': '9', 'raw': 0, 'column': 9},
+             11: {'ant_key': '0', 'raw': 0, 'column': 10},
+             12: {'ant_key': '*', 'raw': 0, 'column': 11},
+             13: {'ant_key': '=', 'raw': 0, 'column': 12},
+             14: {'ant_key': '', 'raw': 0, 'column': 0},
+             15: {'ant_key': '', 'raw': 0, 'column': 0},
+             16: {'ant_key': 'ц', 'raw': 1, 'column': 1},
+             17: {'ant_key': 'ь', 'raw': 1, 'column': 2},
+             18: {'ant_key': 'я', 'raw': 1, 'column': 3},
+             19: {'ant_key': ',', 'raw': 1, 'column': 4},
+             20: {'ant_key': '.', 'raw': 1, 'column': 5},
+             21: {'ant_key': 'з', 'raw': 1, 'column': 6},
+             22: {'ant_key': 'в', 'raw': 1, 'column': 7},
+             23: {'ant_key': 'к', 'raw': 1, 'column': 8},
+             24: {'ant_key': 'д', 'raw': 1, 'column': 9},
+             25: {'ant_key': 'ч', 'raw': 1, 'column': 10},
+             26: {'ant_key': 'ш', 'raw': 1, 'column': 11},
+             27: {'ant_key': 'щ', 'raw': 1, 'column': 12},
+             28: {'ant_key': '', 'raw': 0, 'column': 0},
+             29: {'ant_key': '', 'raw': 0, 'column': 0},
+             30: {'ant_key': 'у', 'raw': 2, 'column': 1},
+             31: {'ant_key': 'и', 'raw': 2, 'column': 2},
+             32: {'ant_key': 'е', 'raw': 2, 'column': 3},
+             33: {'ant_key': 'о', 'raw': 2, 'column': 4},
+             34: {'ant_key': 'а', 'raw': 2, 'column': 5},
+             35: {'ant_key': 'л', 'raw': 2, 'column': 6},
+             36: {'ant_key': 'н', 'raw': 2, 'column': 7},
+             37: {'ant_key': 'т', 'raw': 2, 'column': 8},
+             38: {'ant_key': 'с', 'raw': 2, 'column': 9},
+             39: {'ant_key': 'р', 'raw': 2, 'column': 10},
+             40: {'ant_key': 'й', 'raw': 2, 'column': 11},
+             41: {'ant_key': 'ё', 'raw': 0, 'column': 0},
+             42: {'ant_key': '', 'raw': 0, 'column': 0},
+             43: {'ant_key': '', 'raw': 0, 'column': 0},
+             44: {'ant_key': 'ф', 'raw': 3, 'column': 1},
+             45: {'ant_key': 'э', 'raw': 3, 'column': 2},
+             46: {'ant_key': 'х', 'raw': 3, 'column': 3},
+             47: {'ant_key': 'ы', 'raw': 3, 'column': 4},
+             48: {'ant_key': 'ю', 'raw': 3, 'column': 5},
+             49: {'ant_key': 'б', 'raw': 3, 'column': 6},
+             50: {'ant_key': 'м', 'raw': 3, 'column': 7},
+             51: {'ant_key': 'п', 'raw': 3, 'column': 8},
+             52: {'ant_key': 'г', 'raw': 3, 'column': 9},
+             53: {'ant_key': 'ж', 'raw': 3, 'column': 10},
+             54: {'ant_key': '', 'raw': 0, 'column': 0},
+             55: {'ant_key': '', 'raw': 0, 'column': 0},
+             56: {'ant_key': '', 'raw': 0, 'column': 0},
+             57: {'ant_key': ' ', 'raw': 0, 'column': 0},
+             58: {'ant_key': '~', 'raw': 2, 'column': 1}}
 
 counter_fingers = {'f5l': 0, 'f4l': 0, 'f3l': 0, 'f2l': 0, 'f1l': 0, 'f1r': 0, 'f2r': 0, 'f3r': 0, 'f4r': 0, 'f5r': 0}
 
@@ -71,7 +68,7 @@ counter_fingers = {'f5l': 0, 'f4l': 0, 'f3l': 0, 'f2l': 0, 'f1l': 0, 'f1r': 0, '
 
 def get_cords(sim_from_text):
     for key in keys_dict.keys():
-        for value in keys_dict[key]['skor_key']:
+        for value in keys_dict[key]['ant_key']:
             if value == sim_from_text:
                 return [keys_dict[key]['raw'],
                         keys_dict[key]['column']]  # первый элемент возвращаемого списка - строка, второй - столбец
@@ -144,18 +141,6 @@ def count_steps(first_sim, second_sim):
 
 
 if __name__ == '__main__':
-    with open('text.txt', 'r', encoding='utf-8') as f:
-        text = f.read()
-    text = re.sub(r'[^А-Яа-я,*.]', '', text)
-    text = list(text)
-    list_upper_case = [i for i in text if i.isupper()]
-    list_unsup_chr = [i for i in text if i == 'ъ']
-    print(len(list_upper_case), len(list_unsup_chr))
-    value_passing_fingers(0, (len(list_upper_case) + len(list_unsup_chr))*2)
-    text = ''.join(text)
-    text = list(re.sub(r'ъ', 'ь', text))
-    text = [i.lower() for i in text]
-    print(text)
     for i in range(1, len(text)):
         count_steps(text[i-1], text[i])
     print(counter_fingers)

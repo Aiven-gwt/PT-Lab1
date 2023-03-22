@@ -1,7 +1,6 @@
 """
 skoropis.png
-""" 
-
+"""
 import re
 import json
 
