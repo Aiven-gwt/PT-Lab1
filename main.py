@@ -107,14 +107,10 @@ if __name__ == '__main__':
     text = list(text)
     list_upper_case = [i for i in text if i.isupper()]
     list_unsup_chr = [i for i in text if i == 'ъ']
-    print(len(list_upper_case), len(list_unsup_chr))
-    value_passing_fingers(0, (len(list_upper_case) + len(list_unsup_chr))*2)
+    value_passing_fingers(0, (len(list_upper_case) + len(list_unsup_chr)) * 2)
     text = ''.join(text)
     text = list(re.sub(r'ъ', 'ь', text))
     text = [i.lower() for i in text]
-    print(text)
     for i in range(1, len(text)):
-        count_steps(text[i-1], text[i])
+        count_steps(text[i - 1], text[i])
     print(counter_fingers)
-
-
