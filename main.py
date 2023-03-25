@@ -1,8 +1,6 @@
 import re
-from keysdikt import keys_dict
-
-counter_fingers = {'f5l': 0, 'f4l': 0, 'f3l': 0, 'f2l': 0, 'f1l': 0, 'f1r': 0, 'f2r': 0, 'f3r': 0, 'f4r': 0, 'f5r': 0}
-# словарь для подсчета колличества шагов пройденных каждым пальцем
+import main1
+from keysdikt import *
 
 
 def get_cords(sim_from_text):
@@ -103,7 +101,7 @@ def count_steps(first_sim, second_sim):
 if __name__ == '__main__':
     with open('text.txt', 'r', encoding='utf-8') as f:
         text = f.read()
-    text = re.sub(r'[^А-Яа-я,*.]', '', text)
+    text = re.sub(r'[^А-Яа-яёЁ1-9,0]', '', text)
     text = list(text)
     list_upper_case = [i for i in text if i.isupper()]
     list_unsup_chr = [i for i in text if i == 'ъ']
@@ -113,4 +111,5 @@ if __name__ == '__main__':
     text = [i.lower() for i in text]
     for i in range(1, len(text)):
         count_steps(text[i - 1], text[i])
-    print(counter_fingers)
+    main1.main()
+    print_fingers()
