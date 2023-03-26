@@ -67,7 +67,7 @@ counter_fingers_qwer = {'f5l': 0, 'f4l': 0, 'f3l': 0, 'f2l': 0, 'f1l': 0, 'f1r':
 
 def print_fingers():
     print(f'\t\tANT\t\t\t\t\t\t\tQWERTY')
-    print(f'f1l - {counter_fingers["f1l"]}\tf1r - {counter_fingers["f1r"]}\t\t\t\t\tf1l - {counter_fingers_qwer["f1l"]}\tf1r - {counter_fingers_qwer["f1r"]}')
+    print(f'f1l - {counter_fingers["f1l"]}\t\tf1r - {counter_fingers["f1r"]}\t\t\t\tf1l - {counter_fingers_qwer["f1l"]}\t\tf1r - {counter_fingers_qwer["f1r"]}')
     print(f'f2l - {counter_fingers["f2l"]}\tf2r - {counter_fingers["f2r"]}\t\t\tf2l - {counter_fingers_qwer["f2l"]}\tf2r - {counter_fingers_qwer["f2r"]}')
     print(f'f3l - {counter_fingers["f3l"]}\tf3r - {counter_fingers["f3r"]}\t\t\tf3l - {counter_fingers_qwer["f3l"]}\tf3r - {counter_fingers_qwer["f3r"]}')
     print(f'f4l - {counter_fingers["f4l"]}\tf4r - {counter_fingers["f4r"]}\t\t\tf4l - {counter_fingers_qwer["f4l"]}\tf4r - {counter_fingers_qwer["f4r"]}')
