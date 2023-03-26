@@ -25,7 +25,7 @@
 
 **Раскладка ант**
 
-![раскладка ант](https://hsto.org/r/w1560/getpro/geektimes/post_images/dd7/793/5e6/dd77935e6b65b5b49aad609da43157db.jpg)
+![раскладка ант](https://s3-eu-west-1.amazonaws.com/raskumandrin/2020-02-11-diktor/diktor.png)
 
 Рассммотрим как будет оптимально нагружать пальцы каждая из раскладок
 
