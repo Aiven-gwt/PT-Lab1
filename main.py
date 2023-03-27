@@ -7,28 +7,33 @@ def get_cords(sim_from_text):
     """
     Функция для получения координат символа из keys_dict
 
-    :параметр sim_from_text: строчный символ для которого нужно получить координвты
-    :return: функция фозвращает список с 2-мя элементами, где 0-й элемент это строка, а 1-й - столбец
+    :параметр sim_from_text: строчный символ для
+    которого нужно получить координвты
+    :return: функция фозвращает список с 2-мя элементами,
+    где 0-й элемент это строка, а 1-й - столбец
     """
     for key in keys_dict.keys():
         for value in keys_dict[key]['ant_key']:
             if value == sim_from_text:
                 return [keys_dict[key]['raw'],
-                        keys_dict[key]['column']]  # первый элемент возвращаемого списка - строка, второй - столбец
+                        keys_dict[key]['column']]
 
 
-# функция для записи шагов пройденных каждым пальцем. Поступает номер колонки и колличество шагов,
+# функция для записи шагов пройденных каждым пальцем.
+# Поступает номер колонки и колличество шагов,
 # в зависимости от ряда выбирается палец и записывается кол-во шагов
 
 
 def value_passing_fingers(column, value):
     """
-    Функция для записи шагов пройденных каждым пальцем. Поступает номер колонки и колличество шагов,
+    Функция для записи шагов пройденных каждым пальцем.
+    Поступает номер колонки и колличество шагов,
     в зависимости от ряда выбирается палец и записывается кол-во шагов
 
     :параметр column: номер столбца
     :параметр value: колличество шагов которое прошёл палец
-    :return: функция ничего не возвращает, а записывает значения в counter_fingers
+    :return: функция ничего не возвращает,
+    а записывает значения в counter_fingers
     """
     match column:
         case 0 | 1:
@@ -49,53 +54,63 @@ def value_passing_fingers(column, value):
             counter_fingers['f5r'] += value
 
 
-# функция для подсчета шагов. При поступлении 2-х символов, считает шаги затраченные на нажатие второго.
+# функция для подсчета шагов. При поступлении 2-х
+# символов, считает шаги затраченные на нажатие второго.
 
 
 def count_steps(first_sim, second_sim):
     """
-    Функция для подсчета шагов. При поступлении 2-х символов, считает шаги затраченные на нажатие второго.
+    Функция для подсчета шагов. При поступлении 2-х
+    символов, считает шаги затраченные на нажатие второго.
 
     :param first_sim: предыдущий символ текста
     :param second_sim: последующий символ текста
-    :return: функция ничего не возвращает, а передаёт значения в функцию для записи шагов value_passing_fingers
+    :return: функция ничего не возвращает, а передаёт
+    значения в функцию для записи шагов value_passing_fingers
     """
-    if get_cords(first_sim)[1] - get_cords(second_sim)[1] == 0:  # если символы находятся в одном столбце
-        value_passing_fingers(get_cords(second_sim)[1], abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]))
-        # записываем в словаль колличество шагов в зависимости от разности номеров строк в которые входят элементы
-    else:  # если же символы находятся в разных столбцах
-        if get_cords(first_sim)[0] != get_cords(second_sim)[0]:  # если символы в разных строках
-            match get_cords(second_sim)[1]:  # в зависимости от номеров столбцов записывам кол-во шагов в словарь
-                case 5 | 6:  # т.к. 5й и 6й столбцы бьются 1м пальцем(л. или п. указательным)
-                    # прибавляем 1 шаг для занятия позиции от home ряда
+    if get_cords(first_sim)[1] - get_cords(second_sim)[1] == 0:
+        value_passing_fingers(get_cords(second_sim)[1],
+                              abs(get_cords(first_sim)[0] -
+                                  get_cords(second_sim)[0]))
+    else:
+        if get_cords(first_sim)[0] != get_cords(second_sim)[0]:
+            match get_cords(second_sim)[1]:
+                case 5 | 6:
                     if get_cords(second_sim)[0] == 2:
                         value_passing_fingers(get_cords(second_sim)[1], 1)
                     else:
                         value_passing_fingers(get_cords(second_sim)[1],
-                                              abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 1)
-                case 1 | 2 | 3 | 4 | 7 | 8 | 9 | 10:  # столбцы бьющиеся 1м пальцем
+                                              abs(get_cords(first_sim)[0] -
+                                                  get_cords(second_sim)[0])
+                                              + 1)
+                case 1 | 2 | 3 | 4 | 7 | 8 | 9 | 10:
                     if get_cords(second_sim)[0] == 2:
                         pass
                     else:
                         value_passing_fingers(get_cords(second_sim)[1],
-                                              abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]))
-                case 11:  # 11 и 12 бьются п.мезинцем поэтому прибавляем 1 или 2 шага для занятия позиции
+                                              abs(get_cords(first_sim)[0] -
+                                                  get_cords(second_sim)[0]))
+                case 11:
                     value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 1)
+                                          abs(get_cords(first_sim)[0] -
+                                              get_cords(second_sim)[0]) + 1)
                 case 12:
                     value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(first_sim)[0] - get_cords(second_sim)[0]) + 2)
-        if get_cords(first_sim)[0] == get_cords(second_sim)[0]:  # если символы в одинаковых строках
+                                          abs(get_cords(first_sim)[0] -
+                                              get_cords(second_sim)[0]) + 2)
+        if get_cords(first_sim)[0] == get_cords(second_sim)[0]:
             match get_cords(second_sim)[1]:
                 case 5 | 6 | 11:
                     value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(second_sim)[0] - 2) + 1)
+                                          abs(get_cords(second_sim)[0] -
+                                              2) + 1)
                 case 1 | 2 | 3 | 4 | 7 | 8 | 9 | 10:
                     value_passing_fingers(get_cords(second_sim)[1],
                                           abs(get_cords(second_sim)[0] - 2))
                 case 12:
                     value_passing_fingers(get_cords(second_sim)[1],
-                                          abs(get_cords(second_sim)[0] - 2) + 2)
+                                          abs(get_cords(second_sim)[0] -
+                                              2) + 2)
 
 
 if __name__ == '__main__':
